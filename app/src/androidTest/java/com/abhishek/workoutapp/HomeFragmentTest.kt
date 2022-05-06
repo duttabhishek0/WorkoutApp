@@ -31,7 +31,7 @@ class HomeFragmentTest{
     }
     @Test
     fun return_true_chip_is_showing() {
-        Espresso.onView(withId(R.id.layout_chip))
+        Espresso.onView(withId(R.id.appBarLayout))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
