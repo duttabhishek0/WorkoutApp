@@ -1,18 +1,18 @@
 package com.abhishek.workoutapp.screens.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhishek.workoutapp.R
-import com.abhishek.workoutapp.data.entity.Workout
 import com.abhishek.workoutapp.databinding.FragmentHomeBinding
+import com.abhishek.workoutapp.screens.adapter.WorkoutAdapter
 import com.abhishek.workoutapp.screens.viewmodel.WorkoutViewModel
 import com.google.android.material.chip.Chip
 
@@ -20,12 +20,11 @@ class HomeFragment : Fragment() {
     private lateinit var _binding: FragmentHomeBinding
     private val binding get() = _binding
     private lateinit var workoutViewModel: WorkoutViewModel
-    private lateinit var workoutAdapter : WorkoutAdapter
-
-
+    private lateinit var workoutAdapter: WorkoutAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -40,12 +39,16 @@ class HomeFragment : Fragment() {
             workoutViewModel = ViewModelProvider(it!!).get(WorkoutViewModel::class.java)
         }
         workoutAdapter = WorkoutAdapter(mutableListOf())
-        workoutAdapter.setOnWorkoutListener { workout->
+        workoutAdapter.setOnWorkoutListener { workout ->
             workoutViewModel.setSelectedWorkout(workout)
-            findNavController().navigate(R.id.exerciseDetailsFragment,
+            findNavController().navigate(
+                R.id.exerciseDetailsFragment,
                 arguments,
-                NavOptions.Builder().setPopUpTo(R.id.exerciseDetailsFragment,
-                    true).build())
+                NavOptions.Builder().setPopUpTo(
+                    R.id.exerciseDetailsFragment,
+                    true
+                ).build()
+            )
         }
 
         withTags()
@@ -62,10 +65,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun withTags() {
         binding.chipGroupFilter.children.forEach {
-            val chip  = (it as Chip)
+            val chip = (it as Chip)
             chip.setOnCheckedChangeListener { _, b ->
                 if (b) {
                     workoutViewModel.difficulty.value = chip.tag as String

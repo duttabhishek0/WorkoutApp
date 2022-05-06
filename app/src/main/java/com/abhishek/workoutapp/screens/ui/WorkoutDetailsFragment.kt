@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -54,6 +55,7 @@ class WorkoutDetailsFragment : Fragment() {
         workoutViewModel.selectedWorkout.observe(
             viewLifecycleOwner
         ) {
+            val imageUrl = it.image
             Log.d("TAG", "onViewCreatedDetail:$it ")
             binding.apply {
                 exerciseName.text = it.exerciseName
@@ -62,9 +64,18 @@ class WorkoutDetailsFragment : Fragment() {
                 primaryMusclesTv.text = it.primaryMuscles
                 secondaryMusclesTv.text = it.secondaryMuscles
                 descriptionTv.text = it.description
+                fav.setOnClickListener {
+                    Toast.makeText(
+                        context,
+                        "Added to favourites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
                 Glide.with(exerciseImage.context)
-                    .load(it.secondaryImage)
+                    .load(imageUrl)
                     .placeholder(R.drawable.image_three)
+                    .error(R.drawable.primary)
                     .fitCenter()
                     .centerCrop()
                     .into(exerciseImage)

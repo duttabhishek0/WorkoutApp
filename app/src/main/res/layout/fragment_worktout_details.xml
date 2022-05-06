@@ -25,11 +25,13 @@
             android:src="@drawable/image_three" />
 
         <ImageView
+            android:id="@+id/fav"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="bottom|right"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_heart"/>
+            android:src="@drawable/ic_heart"
+            tools:ignore="ContentDescription,RtlHardcoded" />
     </com.google.android.material.card.MaterialCardView>
 
 

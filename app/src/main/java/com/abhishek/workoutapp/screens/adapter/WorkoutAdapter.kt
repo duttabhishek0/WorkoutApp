@@ -1,5 +1,6 @@
 package com.abhishek.workoutapp.screens.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,21 +9,22 @@ import com.abhishek.workoutapp.data.entity.Workout
 import com.abhishek.workoutapp.databinding.ItemIndividualWorkoutBinding
 import com.bumptech.glide.Glide
 
-class WorkoutAdapter(
-    private val workouts : MutableList<Workout>
-) : RecyclerView.Adapter<WorkoutAdapter.WorkoutVH>(){
-    private var listener : ((Workout) -> Unit) ?= null
-    private lateinit var binding : ItemIndividualWorkoutBinding
+public class WorkoutAdapter(
+    private val workouts: MutableList<Workout>
+) : RecyclerView.Adapter<WorkoutAdapter.WorkoutVH>() {
+    private var listener: ((Workout) -> Unit) ? = null
+    private lateinit var binding: ItemIndividualWorkoutBinding
 
-    inner class WorkoutVH(itemView :ItemIndividualWorkoutBinding ) : RecyclerView.ViewHolder(itemView.root)
-    fun showData(workouts: List<Workout>){
+    inner class WorkoutVH(itemView: ItemIndividualWorkoutBinding) : RecyclerView.ViewHolder(itemView.root)
+    @SuppressLint("NotifyDataSetChanged")
+    fun showData(workouts: List<Workout>) {
         this.workouts.clear()
         this.workouts.addAll(workouts)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutVH {
-        binding = ItemIndividualWorkoutBinding.inflate(LayoutInflater.from(parent.context), parent,false )
+        binding = ItemIndividualWorkoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return WorkoutVH(binding)
     }
 
